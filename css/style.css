@@ -1,9 +1,81 @@
+@font-face {
+    font-family: fridaynightlights;
+    src: url('darcy-baldwin-fonts_djb-friday-night-lights/DJB Friday Night Lights.ttf');
+}
+
 body {
-	background-color: #00006B;
+	background-image: url("../images/basketball-floor.jpg");
+
+}
+
+header {
+	text-align: center;
+	margin: 0 auto;
+}
+
+h1 {
+	padding: 67.5px 20px;
+	text-shadow: 2px 2px black;
+	color: #FF7F00;
+	font-size: 3rem;
 }
 
 img {
-/*http://site.gibbonpublic.org/girls-jr-high-basketball/
+	height: 190px;
+	float: left;
+
+/*s618.photobucket.com
 
 https-//www.pinterest.com/azemmy/g-nb/?from_navigate=true*/
+}
+
+.scoreboard {
+	background-color: black;
+	float: right;
+	font-family: fridaynightlights, Times;
+	color: white;
+	width: 225px;
+	text-align: center;	
+}
+
+h3 {
+	padding: 10px;
+	font-size: 50px;
+}
+	
+main {
+	max-width: 685px;
+    padding: 67.5px 20px;
+    margin: 0 auto;
+    color: white;
+    background-color: #CC933F;
+}
+
+h2 {
+	text-align: center;
+}
+
+p {
+	display: inline-block;
+}
+
+.end,
+.questions {
+	display: none;
+}
+
+ul {
+	list-style: none;
+}
+
+button {
+	margin-left: 285px;
+	background-color: #FF7F00;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
 }

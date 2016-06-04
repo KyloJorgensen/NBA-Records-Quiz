@@ -3,25 +3,56 @@
 <head>
 	<meta charset="UTF-8">
 	<title>NBA Records Quiz</title>
+	<link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+	<link href="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
 	<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-	<img src="images/basketball.png" alt="Basketball">
-	<img src="images/basketball-floor.jpg" alt="Basketball-floor">
-	<header></header>
-	<div id="scoreboard"></div>
+	<header>
+		<img src="images/basketball.png" alt="Basketball">
+
+		<div class="scoreboard">
+			<h3>HOME</h3>
+			<h3 id="score">0</h3>
+			<h3>Q <span id="questioncounter">0</span> / 5</h3>
+		</div>	
+		<h1>NBA Records Quiz</h1>
+	</header>
 	<main>
-		<div class="textbox">
-			<p></p>
-		</div>
-		<div class="anwserbox">
-			<ul></ul>
-		</div>
-		<button></button>
+
+		<section>
+			<h2 class="textbox">READY TO PLAY!!</h2>
+		</section>
+		<section class="middle">
+			<div class="end">
+				<h2>Thanks for playing!</h2>
+			</div>
+			<div class="questions">
+				<ul>
+					<li>
+						<i class="icon-check-empty"></i>
+						<p>Lorem ipsum dolor sit amet, consectetur.</p>
+					</li>
+					<li>
+						<i class="icon-check-empty"></i>
+						<p>Pariatur, quia repudiandae odio odit sit.</p>
+					</li>
+					<li>
+						<i class="icon-check-empty"></i>
+						<p>Natus quo sint facere recusandae quibusdam.</p>
+					</li>
+					<li>
+						<i class="icon-check-empty"></i>
+						<p>Minima deserunt inventore natus tenetur, placeat.</p>
+					</li>
+				</ul>
+			</div>
+		</section>
+		<button type="button">START</button>
 	</main>
 	
 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-rc1/jquery.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-rc1/jquery.js"></script>
 	<script type="text/javascript" src="js/app.js"></script>
 </body>
 </html>
