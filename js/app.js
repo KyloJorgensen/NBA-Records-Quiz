@@ -1,5 +1,6 @@
 $(document).ready(function() {
-	var questionCount = 0,
+	var score = 0,
+		questionCount = 0,
 		question; 
 		questionObjects = {
 		question: '',
@@ -52,39 +53,76 @@ $(document).ready(function() {
 
 	var questionsArray = [firstQ, secondQ, thirdQ, forthQ, fifthQ]
 
+
+	//Changes page
+	$('body').on('click', '.start', function() {
+		nextQuestion();
+		$('button').text('SUBMIT')
+		.removeClass('start')
+		.addClass('submit');
+	})
+	.on('click', '.submit', function() {
+		verifySelection();
+	})
+	.on('click', '.next', function() {
+		nextQuestion();
+		$('button').text('SUBMIT')
+		.removeClass('next')
+		.addClass('submit');
+		if (questionCount == 6) {
+			gameOver();
+		}
+	})
+	.on('click', '.tryagain', function() {
+		newGame();
+		$('button').text('START')
+		.removeClass('tryagain')
+		.addClass('start');
+	})
+	.on('click', '.icon-check-empty', function(){
+		$('i').removeClass('icon-check');
+		$('i').addClass('icon-check-empty');
+		$(this).removeClass('icon-check-empty');
+		$(this).addClass('icon-check');
+	})
+	.on('click', '.help', function() {
+		$('footer').show();
+		$(this).hide();
+	})
+	.on('click', 'footer', function () {
+		$('.help').show();
+		$(this).hide();
+	});
+
 	//starts a new game
 	function newGame() {
-		$('#score').text('0');
+		score = 0
+		$('#score').text(score);
 		questionCount = 0;
 		$('#questioncounter').text('0');
 		$('.textbox').text('READY TO PLAY!!');
 		$('button').text('START');
 		$('.end').hide();
-		$('.questions').hide();
 	}
-	//Changes page
-	$('body').on('click', 'button', function() {
-		$('button').html() == 'START' ? nextQuestion() : '';
-		$('button').html() == 'SUBMIT' ? verifySelection() : '';
-		$('button').html() == 'NEXT' ? nextQuestion() : '';
-		$('button').html() == 'TRY AGAIN' ? newGame() : ''; 
-	});
 
+	// gets next question page
 	function nextQuestion() {
 		question = questionsArray[questionCount];
-		$('.textbox').text(question.question);
-		var awnsers = [question.anwser, question.falseAnwser1, question.falseAnwser2, question.falseAnwser3];
-		awnsers = shuffle(awnsers);
-		console.log(awnsers);
-		$('ul').empty()
-		$('.questions').show();
-		for (var i = 0; i < awnsers.length; i++) {
-			$('ul').append('<li><i class="icon-check-empty"></i><p>' + awnsers[i] + '</p></li>')
+		questionCount++;
+		if (questionCount < 6) { 
+			$('#questioncounter').text(questionCount);
+			$('.textbox').text(question.question);
+			var awnsers = [question.anwser, question.falseAnwser1, question.falseAnwser2, question.falseAnwser3];
+			awnsers = shuffle(awnsers);
+			$('ul').empty();
+			for (var i = 0; i < awnsers.length; i++) {
+				$('ul').append('<li><i class="icon-check-empty"></i><p>' + awnsers[i] + '</p></li>')
+			}
+			$('button').text('SUBMIT');
 		}
-		$('button').text('SUBMIT');
 		
 	}
-
+	//shuffles arrays
 	function shuffle(array) {
 	  var currentIndex = array.length, temporaryValue, randomIndex;
 
@@ -110,18 +148,27 @@ $(document).ready(function() {
 	}
 
 	function anwserPage() {
-		$('.icon-check').html() == question.anwser ? $('.textbox').text('YOU GOT IT RIGHT!!') : $('.textbox').text('Sorry to got it wrong.');
-
+		$('.icon-check').siblings('p').html() == question.anwser ? scored() : $('.textbox').text('Sorry to got it wrong.');
+		$('ul').empty();
+		$('ul').append('<li><p>' + question.anwserComment + '</p></li>')
+		$('button').text('NEXT')
+		.removeClass('submit')
+		.addClass('next');
 	}
 
-	//selects a choice
-	$('ul').on('click', '.icon-check-empty', function(){
-		$('i').removeClass('icon-check');
-		$('i').addClass('icon-check-empty');
-		$(this).removeClass('icon-check-empty');
-		$(this).addClass('icon-check');
-	});
+	function scored() {
+		$('.textbox').text('YOU GOT IT RIGHT!!');
+		score ++;
+		$('#score').text(score);
+	}
 
-
-
+	function gameOver() {
+		$('.textbox').text('YOUR SCORE: ' + score)
+		$('ul').empty();
+		$('ul').append('<li><p>Thanks for playing!</p></li>')
+		$('button').text('TRYAGAIN')
+		.removeClass('submit')
+		.addClass('tryagain');
+		$('ul').empty();
+	}
 });

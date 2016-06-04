@@ -8,17 +8,13 @@ body {
 
 }
 
-header {
+header,
+footer {
 	text-align: center;
 	margin: 0 auto;
 }
 
-h1 {
-	padding: 67.5px 20px;
-	text-shadow: 2px 2px black;
-	color: #FF7F00;
-	font-size: 3rem;
-}
+
 
 img {
 	height: 190px;
@@ -38,6 +34,13 @@ https-//www.pinterest.com/azemmy/g-nb/?from_navigate=true*/
 	text-align: center;	
 }
 
+h1 {
+	padding: 67.5px 20px;
+	text-shadow: 2px 2px black;
+	color: #FF7F00;
+	font-size: 3rem;
+}
+
 h3 {
 	padding: 10px;
 	font-size: 50px;
@@ -55,13 +58,8 @@ h2 {
 	text-align: center;
 }
 
-p {
+ul li p {
 	display: inline-block;
-}
-
-.end,
-.questions {
-	display: none;
 }
 
 ul {
@@ -81,4 +79,14 @@ button {
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
+}
+
+footer {
+	background-color: black;
+	display: none;
+}
+
+.help {
+	float: right;
+	margin: 10px;
 }
