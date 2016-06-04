@@ -1,6 +1,5 @@
 $(document).ready(function() {
 	var questionCount = 0,
-		question; 
 		questionObjects = {
 		question: '',
 		anwser: '',
@@ -65,7 +64,7 @@ $(document).ready(function() {
 	//Changes page
 	$('body').on('click', 'button', function() {
 		$('button').html() == 'START' ? nextQuestion() : '';
-		$('button').html() == 'SUBMIT' ? verifySelection() : '';
+		$('button').html() == 'SUBMIT' ? '' : '';
 		$('button').html() == 'NEXT' ? nextQuestion() : '';
 		$('button').html() == 'TRY AGAIN' ? newGame() : ''; 
 	});
@@ -81,7 +80,7 @@ $(document).ready(function() {
 		for (var i = 0; i < awnsers.length; i++) {
 			$('ul').append('<li><i class="icon-check-empty"></i><p>' + awnsers[i] + '</p></li>')
 		}
-		$('button').text('SUBMIT');
+
 		
 	}
 
@@ -102,16 +101,6 @@ $(document).ready(function() {
 	  }
 
 	  return array;
-	}
-
-	//verifies if the user has selected a anwser
-	function verifySelection() {
-		$('i').hasClass('icon-check') ? anwserPage() : alert('Please select your anwser.');
-	}
-
-	function anwserPage() {
-		$('.icon-check').html() == question.anwser ? $('.textbox').text('YOU GOT IT RIGHT!!') : $('.textbox').text('Sorry to got it wrong.');
-
 	}
 
 	//selects a choice
