@@ -14,7 +14,7 @@ $(document).ready(function() {
         buttonPushed();
     });
 
-    // chages which anwserthe users is chooseing
+    // changes which anwser the users is chooseing
     $('body').on('click', 'i', function() {
         $('i').removeClass('icon-check');
         $('i').addClass('icon-check-empty');
@@ -44,13 +44,11 @@ $(document).ready(function() {
                 gameOver();
                 changeButton('next', 'tryagain');
             }
-
         } else if ($('main').children('button').hasClass('submit')) {
             if (valifySelection()) {
                 validateAnwser();
                 getAnwserComment();
                 changeButton('submit', 'next');
-                
             }
         } else if ($('main').children('button').hasClass('tryagain')) {
             newGame();
