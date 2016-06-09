@@ -1,4 +1,5 @@
 $(document).ready(function() {
+	'use strict';
     var score = 0,
         currentQuestion = -1,
         questions = [
@@ -9,9 +10,15 @@ $(document).ready(function() {
             { question: 'Who holds NBA career records for blocks?', anwser: 'Hakeem Olajuwon', chocies: ['Hakeem Olajuwon', 'Dikembe Mutombo', 'Kareem Abdul-Jabbar', 'Mark Eaton'], anwserComment: 'Hakeem Olajuwon holds the NBA career record with 3830 blocks.' }
         ];
 
-    //Checks if the button in main has been clicked
-    $('main').on('click', 'button', function() {
-        buttonPushed();
+    //listens for user to hit start next submit and tryagain buttons
+    $('main').on('click', '.next', function() {
+        validateQuestion();
+    })
+    .on('click', '.submit', function() {
+        valifySelection();
+    })
+    .on('click', '.tryagain', function() {
+        tryagain();
     });
 
     // changes which anwser the users is chooseing
@@ -32,47 +39,30 @@ $(document).ready(function() {
         $(this).hide();
     });
 
-
-    //determines what to do when button is push
-    function buttonPushed() {
-        if ($('main').children('button').hasClass('next')) {
-			currentQuestion++;
-            if (getNextQuestion()) {
-            	$('#currentQuestion').text(currentQuestion + 1);
-                changeButton('next', 'submit');
-            } else {
-                gameOver();
-                changeButton('next', 'tryagain');
-            }
-        } else if ($('main').children('button').hasClass('submit')) {
-            if (valifySelection()) {
-                validateAnwser();
-                getAnwserComment();
-                changeButton('submit', 'next');
-            }
-        } else if ($('main').children('button').hasClass('tryagain')) {
-            newGame();
-            changeButton('tryagain', 'next');
-        }
-    }
-
-    // gets next question 
-    function getNextQuestion() {
-        var returnval = true;
+    // validates that there is another question from questions Array
+    function validateQuestion() {
+		currentQuestion++;
         if (currentQuestion < questions.length) {
-            $('.textbox').text(questions[currentQuestion].question);
-            anwsers = shuffle(questions[currentQuestion].chocies);
-            $('ul').empty();
-            for (var i = 0; i < anwsers.length; i++) {
-                $('ul').append('<li><i class="icon-check-empty"></i><p>' + anwsers[i] + '</p></li>')
-            }
+        	generateQuestion()
+        	$('#currentQuestion').text(currentQuestion + 1);
+            changeButton('next', 'submit');
         } else {
-            returnval = false;
+            gameOver();
+            changeButton('next', 'tryagain');
         }
-        return returnval;
     }
 
-    //shuffles arrays
+    // generates a questions from questions array
+    function generateQuestion() {
+        $('.textbox').text(questions[currentQuestion].question);
+        var chocies = shuffle(questions[currentQuestion].chocies);
+        $('ul').empty();
+        for (var i = 0; i < chocies.length; i++) {
+            $('ul').append('<li><i class="icon-check-empty"></i><p>' + chocies[i] + '</p></li>')
+        }
+    }
+
+    // shuffles an array
     function shuffle(array) {
         var currentIndex = array.length,
             temporaryValue, randomIndex;
@@ -102,33 +92,43 @@ $(document).ready(function() {
         $('ul').append('<li><p>Thanks for playing!</p></li>')
     }
 
-    //verifies if the user has selected a anwser
+    //verifies if the user has selected a choice
     function valifySelection() {
-        var returnval = true
-        if ($('i').hasClass('icon-check') == false) {
+        if ($('i').hasClass('icon-check')) {
+        	validateChoice();
+            generateAnwserComment();
+            changeButton('submit', 'next');
+        } else {
             alert('Please select your anwser.');
-            returnval = false;
         }
-        return returnval;
     }
 
-    //vaildates users anwser
-    function validateAnwser() {
-    	console.log($('.icon-check').siblings('p').html());
-    	console.log(questions[currentQuestion].anwser);
-        if ($('.icon-check').siblings('p').html() == questions[currentQuestion].anwser) {
-            $('.textbox').text('YOU GOT IT RIGHT!!');
+    //vaildates users choice
+    function validateChoice() {
+        generateAnwser($('.icon-check').siblings('p').html() == questions[currentQuestion].anwser);
+    }
+
+    // generates Anwser
+    function generateAnwser(result) {
+    	if (result) {
+			$('.textbox').text('YOU GOT IT RIGHT!!');
             score++;
             $('#score').text(score);
-        } else {
-            $('.textbox').text('Sorry got that one wrong.');
-        }
+		} else {
+			$('.textbox').text('Sorry got that one wrong.');
+		}
     }
 
-    // gets Awnser comment
-    function getAnwserComment() {
+    // gets Anwser comment
+    function generateAnwserComment() {
         $('ul').empty();
         $('ul').append('<li><p>' + questions[currentQuestion].anwserComment + '</p></li>')
+    }
+
+    // when tyragain button is push starts new game
+    function tryagain() {
+        newGame();
+        changeButton('tryagain', 'next');
     }
 
     //starts a new game
